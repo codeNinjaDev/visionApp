@@ -1,0 +1,161 @@
+#:kivy 1.10.1
+#:import F kivy.factory.Factory
+<VPopup@Popup>:
+    vViewInput: verticalFieldOfViewInput
+    vFocalInput: verticalFocalLengthInput
+    closeVPopUpButton: closeButton
+    title: "Vertical Info"
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        
+        TextInput:
+            id: verticalFieldOfViewInput
+            text: "Vertical Field of View"
+            size: (root.width, 16)
+        TextInput:
+            id: verticalFocalLengthInput
+            text: "Vertical Focal Length"
+            size: (root.width, 16)
+
+        Button:
+            id: closeButton
+            text: 'Close me!'
+            on_press: root.dismiss()
+            on_release: F.VisionWidget().moveToContour()
+            height: "16dp"
+            width: root.width/2
+<HPopup@Popup>:
+    hViewInput: horizontalFieldOfViewInput
+    hFocalInput: horizontalFocalLengthInput
+    closeHPopUpButton: closeButton
+    title: "Horizontal Info"
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        
+        TextInput:
+            id: horizontalFieldOfViewInput
+            text: "Horizontal Field of View"
+            size: (root.width, 16)
+        TextInput:
+            id: horizontalFocalLengthInput
+            text: "Horizontal Focal Length"
+            size: (root.width, 16)
+
+        Button:
+            id: closeButton
+            text: 'Close me!'
+            on_release: root.dismiss()
+            on_press: F.VPopup().open()
+            height: "16dp"
+            width: root.width/2
+<VisionWidget>:
+
+    maskingButton: maskButton
+    resultButton: resultButton
+    contourButton: contourButton
+
+
+    
+    Button:
+        text:"Masking->"
+        on_press: root.moveToMasking()
+        id: maskButton
+        height: '32dp'
+    Button:
+        text:""
+        size: (0,0)
+        on_press: root.moveToResult()
+        id: resultButton
+        height: '32dp'
+    Button:
+        text:""
+        size: (0,0)
+        on_press: root.moveToContour()
+        id: contourButton
+        height: '32dp'
+    
+
+    BoxLayout:
+        orientation:'vertical'
+        size_hint_y: None
+        center_y: root.height / 2
+        center_x: root.width / 7
+        BoxLayout:
+            size_hint_y: 10
+            orientation: "vertical"
+
+            Label:
+                id: hueMinLabel
+                text: "Hue Min Slider"
+                center_x: root.width / 3
+            Slider:
+                min: 0
+                max: 181
+                on_value: root.setHueMin(*args)
+                center_x: root.width / 3
+                
+            Label:
+                id: hueMaxLabel
+                text: "Hue Max Slider"
+                center_x: root.width / 3
+            Slider:
+                min: 0
+                max: 181
+                value: 180
+                on_value: root.setHueMax(*args)
+                center_x: root.width / 3
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 10
+
+            Label:
+                id: saturationMinLabel
+                text: "Saturation Min Slider"
+                center_x: root.width / 3
+
+            Slider:
+                min: 0
+                max: 256
+                on_value: root.setSaturationMin(*args)
+                center_x: root.width / 3
+                value: 0
+            Label:
+                id: saturationMaxLabel
+                text: "Saturation Max Slider"
+                center_x: root.width / 3
+
+            Slider:
+                min: 0
+                max: 256
+                value: 255
+                on_value: root.setSaturationMax(*args)
+                center_x: root.width / 3
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 10
+
+            Label:
+                id: valueMinLabel
+                text: "Value Min Slider"
+                center_x: root.width / 3
+
+            Slider:
+                min: 0
+                max: 256
+                value: 0
+                on_value: root.setValueMin(*args)
+                center_x: root.width / 3
+
+            Label:
+                id: valueMaxLabel
+                text: "Value Max Slider"
+                center_x: root.width / 3
+
+            Slider:
+                min: 0
+                max: 256
+                value: 255
+                on_value: root.setValueMax(*args)
+                center_x: root.width / 3
